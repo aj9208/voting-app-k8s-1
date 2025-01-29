@@ -1,0 +1,60 @@
+Voting app
+1 ADD file ... in /     29.96 MB
+2 CMD ["bash"]          0 B
+3 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin  0 B
+4 ENV LANG=C.UTF-8      0 B
+5 /bin/sh -c set -eux; apt-get  1.03 MB
+6 ENV GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568  0 B
+7 ENV PYTHON_VERSION=3.9.16     0 B
+8 /bin/sh -c set -eux; savedAptMark="$(apt-mark 11.05 MB
+9 /bin/sh -c set -eux; for      231 B
+10 ENV PYTHON_PIP_VERSION=22.0.4    0 B
+11 ENV PYTHON_SETUPTOOLS_VERSION=58.1.0 0 B
+12 ENV PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/66030fa03382b4914d4c4d0896961a0bdeeeb274/public/get-pip.py  0 B
+13 ENV PYTHON_GET_PIP_SHA256=1e501cf004eac1b7eb1f97266d28f995ae835d30250bec7f8850562703067dc6   0 B
+14 /bin/sh -c set -eux; savedAptMark="$(apt-mark  3.03 MB
+15 CMD ["python3"]  0 B
+16 RUN /bin/sh -c apt-get update        1.37 MB
+17 WORKDIR /app     99 B
+18 COPY requirements.txt /app/requirements.txt # buildkit  176 B
+19 RUN /bin/sh -c pip install       5.42 MB
+20 COPY . . # buildkit      2.66 KB
+21 EXPOSE map[80/tcp:{}]    0 B
+22 CMD ["gunicorn" "app:app" "-b" "0.0.0.0:80"      0 B
+
+
+worker app
+1 ADD file ... in /     29.96 MB
+2 CMD ["bash"]          0 B
+3 /bin/sh -c apt-get update     14.27 MB
+4 ENV ASPNETCORE_URLS=http://+:80 DOTNET_RUNNING_IN_CONTAINER=true      0 B
+5 ENV DOTNET_VERSION=7.0.1      0 B
+6 COPY dir:66f221f751e77570aeff2377ec3823d75281b5226b232751fa5c350cb73c07f0 in /usr/share/dotnet        30.94 MB
+7 /bin/sh -c ln -s /usr/share/dotnet/dotnet     155 B
+8 WORKDIR /app      99 B
+9 COPY /app . # buildkit        1.39 MB
+10 ENTRYPOINT ["dotnet" "Worker.dll"]   0B
+
+
+
+Result app
+1 ADD file ... in /       29.96 MB
+2 CMD ["bash"]        0 B
+3 /bin/sh -c groupadd --gid 1000      4.08 KB
+4 ENV NODE_VERSION=18.12.1        0 B
+5 /bin/sh -c ARCH= && dpkgArch="$(dpkg        43.06 MB
+6 ENV YARN_VERSION=1.22.19        0 B
+7 /bin/sh -c set -ex      2.64 MB
+8 COPY file:4d192565a7220e135cab6c77fbc1c73211b69f3d9fb37e62857b2c6eb9363d51 in /usr/local/bin/       452 B
+9 ENTRYPOINT ["docker-entrypoint.sh"]     0 B
+10 CMD ["node"]        0 B
+11 RUN /bin/sh -c apt-get update    1.67 MB
+12 WORKDIR /app        99 B
+13 RUN /bin/sh -c npm install      1.22 MB
+14 COPY package*.json ./ # buildkit        21.96 KB
+15 RUN /bin/sh -c npm ci       1.51 MB
+16 COPY . . # buildkit     75.34 KB
+17 ENV PORT=80      0 B
+18 EXPOSE map[80/tcp:{}]       0 B
+19 ENTRYPOINT ["/usr/bin/tini" "--"]       0 B
+20 CMD ["node" "server.js"]     0 B
